@@ -1,0 +1,2 @@
+helm uninstall aws-ebs-csi-driver -n kube-system
+helm install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver --namespace kube-system
