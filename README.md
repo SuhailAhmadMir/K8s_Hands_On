@@ -59,6 +59,9 @@ $ kubectl describe rs <rs-name>
 $ kubectl create deployment test --image=nginx
 $ kubectl set image deployment test nginx=nginx:1.9.1 --record
 $ kubectl rollout history deployment test
+
+kubectl get pod <pod-name> -o yaml
+kubectl get pod <pod-name> -o yaml > test-pod.yaml
 ```
 deployments "test"
 REVISION  CHANGE-CAUSE
@@ -79,3 +82,24 @@ kubectl scale deployment test --replicas=10
 kubectl rollout pause deployment test
 kubectl rollout resume deployment test
 ```
+## Rolling Update
+# Monitor the rolling update using the following command:
+```bash
+kubectl rollout status deployment webapp
+```
+
+# You can also check the rollout history to view the status of previous revisions
+```bash
+kubectl rollout history deployment webapp
+```
+
+# If, for any reason, you need to pause or rollback the update, you can use the kubectl rollout pause and kubectl rollout undo commands. For example, to pause the rollout
+```bash
+kubectl rollout pause deployment webapp
+```
+
+# And to undo the update and roll back to the previous version:
+```bash
+kubectl rollout undo deployment webapp
+```
+Remember to replace "webapp" with the name of your Deployment as specified in your YAML files

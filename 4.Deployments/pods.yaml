@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: webapp
 spec:
-  # minReadySeconds: 30
+  minReadySeconds: 30
   selector:
     matchLabels:
       app: webapp
