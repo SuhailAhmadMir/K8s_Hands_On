@@ -83,4 +83,40 @@ helm repo update
 # Deploy the Kubernetes Dashboard using Helm with auto-generated release name
 helm install --generate-name kubernetes-dashboard/kubernetes-dashboard --namespace=kubernetes-dashboard
 
+# Verify Kubernetes Dashboard Installation:
+```bash
+helm list -n kubernetes-dashboard
+```
 
+# Check the Namespace:
+```bash
+kubectl config set-context --current --namespace=kubernetes-dashboard
+```
+# Check Services and Deployments
+```bash
+kubectl get service -n kubernetes-dashboard
+kubectl get deployment -n kubernetes-dashboard
+
+```
+
+# 
+```bash
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}') | grep "csrf:"
+
+```
+
+# Using port forwarding to access K8s dashboard
+## Check the Service Name:
+```bash
+kubectl get svc -n kubernetes-dashboard
+kubectl port-forward service/<service-name> -n kubernetes-dashboard 8443:443
+https://localhost:8443/
+```
+# Update Kubeconfig file
+```bash
+aws eks --region ap-northeast-2 update-kubeconfig --name fleetman
+```
+# Copy config file
+```bash
+cp ~/.kube/config my-eks-config
+```

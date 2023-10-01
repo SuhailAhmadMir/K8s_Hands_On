@@ -2,16 +2,56 @@
 ```bash
 eksctl create cluster --name fleetman --nodes-min=3 --region ap-northeast-2
 ```
-## Commands
+
+## Change k8s cluster context
 ```bash
+kubectl config get-contexts
+kubectl config use-context <context-name>
+kubectl config current-context
 kubectl get all
-kubectl get nodes
-kubectl cluster-info
+```
+
+## To configure kubectl for AWS EKS, you can use the AWS CLI's eks update-kubeconfig command. Replace <cluster-name> with the name of your EKS cluster and <region> with the AWS region where your cluster is located:
+```bash
+aws eks --region <region> update-kubeconfig --name <cluster-name>
 
 ```
+
+
+## Cluster Commands
+```bash
+kubectl get nodes
+kubectl cluster-info
+```
+## Namespace
+```bash
+kubectl get pods -n my-namespace
+kubectl config set-context --current --namespace=<namespace>
+```
+## Pod Commands
+```bash
+kubectl get all
+kubectl apply -f first-pod.yaml
+kubectl get all
+kubectl describe pod <pod-name>
+kubectl exec <pod-name> ls
+kubectl exec -it <pod-name> sh
+wget http://localhost:80
+cat index.html
+
+```
+
+# In pod check the node on which pod is deployed using
+```bash
+kubectl describe pod <pod-name>
+```
+# Extract pod name and check public ip of node on aws and use that public ip with 30080 port in browser
+# <puclic-ip-of-node>:30080
+
 ## Replicaset
 ```bash
 $ kubectl get pods
+$ kubectl get rs
 $ kubectl describe rs <rs-name>
 ```
 ## Deployment
