@@ -13,3 +13,14 @@ kubectl get pods -o wide
 ```bash
 http://<public-ip-of-node>:30080
 ```
+# Service Discovery
+# <service-name>.<namespace>.svc.cluster.local
+```bash
+kubectl get svc -n kube-system
+kubectl describe svc kube-dns -n kube-system
+kubectl get svc
+kubectl describe svc fleetman-webapp
+kubectl get pods
+kubectl exec -it webapp sh
+nslookup fleetman-webapp.default.svc.cluster.local
+```
