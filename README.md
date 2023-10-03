@@ -14,20 +14,23 @@ kubectl get all
 ## To configure kubectl for AWS EKS, you can use the AWS CLI's eks update-kubeconfig command. Replace <cluster-name> with the name of your EKS cluster and <region> with the AWS region where your cluster is located:
 ```bash
 aws eks --region <region> update-kubeconfig --name <cluster-name>
-
 ```
-
 
 ## Cluster Commands
 ```bash
 kubectl get nodes
 kubectl cluster-info
 ```
+
 ## Namespace
 ```bash
-kubectl get pods -n my-namespace
-kubectl config set-context --current --namespace=<namespace>
+kubectl get namespace
+kubectl get ns --show-labels
+kubectl get pods -n <namespace-name>
+kubectl config set-context --current --namespace=<namespace-name>
+kubectl delete ns <namespace-name>
 ```
+
 ## Pod Commands
 ```bash
 kubectl get all
@@ -37,16 +40,26 @@ kubectl describe pod <pod-name>
 kubectl exec <pod-name> ls
 kubectl exec -it <pod-name> sh
 wget http://localhost:80
+ls
 cat index.html
-
 ```
 
 # In pod check the node on which pod is deployed using
 ```bash
 kubectl describe pod <pod-name>
 ```
-# Extract pod name and check public ip of node on aws and use that public ip with 30080 port in browser
-# <puclic-ip-of-node>:30080
+
+# To access a specific pod and determine the public IP of the node it's deployed on, follow these steps:
+- Extract Pod Name: First, identify the name of the pod you want to access within your Kubernetes cluster.
+- Check Public IP of Node: Use the following command to check the public IP address of the node where the pod is deployed:
+```bash
+kubectl get pods -o wide
+```
+
+# Access the Pod: Construct the URL using the public IP address of the node and port 30080. You can access the pod using the following format:
+```bash
+http://<public-ip-of-node>:30080
+```
 
 ## Replicaset
 ```bash
