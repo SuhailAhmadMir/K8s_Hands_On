@@ -73,7 +73,7 @@ Check the version with kubectl version --client.
 eksctl create cluster --name fleetman --nodes-min=3
 ```
 
-## Step 7: Create an Inline Policy for AmazonElasticBlockStoreFullAccess
+## Step 7: Create an Inline Policy for AmazonElasticBlockStoreFullAccess and attach to IAM Role of Nodes
 
 ```bash
 {
@@ -101,6 +101,23 @@ eksctl create cluster --name fleetman --nodes-min=3
 ## Step 8: For StorageClass, Install CSI Driver
 
 ```bash
-helm uninstall aws-ebs-csi-driver -n kube-system
+helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+helm repo update
 helm install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver --namespace kube-system
+```
+# To uninstall
+```bash
+helm uninstall aws-ebs-csi-driver -n kube-system
+```
+
+# Commands
+```bash
+kubectl get pv
+kubectl get pvc
+kubectl get storageclass
+```
+
+# Kibana index pattern
+```bash
+logstash*
 ```

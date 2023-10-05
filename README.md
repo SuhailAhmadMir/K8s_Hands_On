@@ -94,6 +94,10 @@ $ kubectl describe rs <rs-name>
 
 ```bash
 $ kubectl create deployment test --image=nginx
+# creating a service and exposing to port 30311
+$ kubectl expose deployment test --type=NodePort --port=80
+$ kubectl get deploy -o yaml > test.yaml
+
 $ kubectl set image deployment test nginx=nginx:1.9.1 --record
 $ kubectl rollout history deployment test
 
